@@ -3,7 +3,7 @@ const phoneContainer = document.getElementById("phone-container");
 const detailsContainer = document.getElementById("details-container");
 let error = document.getElementById("error");
 
-//error handle 
+//error handle function
 const errorHandle = (err) => {
     error.style.display = "block";
     error.innerHTML = err;
@@ -24,12 +24,12 @@ const searchButton = () => {
         .then((res) => res.json())
         .then((data) => {
             if (data.status === false) {
-                errorHandle('Please input a valid phone name')
+                errorHandle('No Phone Found...')
             } else if (data.status === true) {
                 getPhone(data.data);
             }
         });
-
+    //input empty after result something...
     searchInput.value = "";
 };
 const getPhone = (phones) => {
@@ -41,13 +41,13 @@ const getPhone = (phones) => {
         const div = document.createElement("div");
         div.classList.add("col");
         div.innerHTML = `
-        <div class="card">
-            <img src="${phone.image}" class="card-img-top " alt="...">
+        <div class="card rounded shadow border-0">
+            <img src="${phone.image}" class="card-img-top w-50 mx-auto p-3" alt="...">
             <div class="card-body">
             <h5 class="card-title">Model: ${phone.phone_name}</h5>
             <p class="card-text">Brand: ${phone.brand}</p>
             </div>
-            <button onclick="getPhoneDetails('${phone.slug}')" class="btn btn-primary">Show Details</button>
+            <button onclick="getPhoneDetails('${phone.slug}')" class="btn btn-primary rounded">Show Details</button>
         </div>
         `;
         phoneContainer.appendChild(div);
@@ -65,8 +65,8 @@ const showPhoneDetais = (info) => {
 
     //   const detailsContainer = document.getElementById("details-container");
     detailsContainer.innerHTML = `
-    <div class="card w-50 mx-auto m-5">
-    <img src="${info.image}" class="card-img-top " alt="...">
+    <div class=" card w-75 mx-auto m-5 shadow ">
+    <img src="${info.image}" class=" card-img-top p-3  w-50 mx-auto" alt="...">
     <div class="card-body">
       <h5 class="card-title">Model: ${info.name}</h5>
       <p class="card-text">Brand: ${info.brand}</p>
@@ -82,7 +82,13 @@ const showPhoneDetais = (info) => {
 
 
 
-  <p class="card-text"> ${info?.others?.Bluetooth}</p>
+  <p class="card-text"> ${info.others?.Bluetooth ? info?.others?.Bluetooth : 'No Others Found'}</p>
+  <p class="card-text"> ${info.others?.GPS ? info?.others?.GPS : ''}</p>
+  <p class="card-text"> ${info.others?.NFC ? info?.others?.NFC : ''}</p>
+  <p class="card-text"> ${info.others?.Radio ? info?.others?.Radio : ''}</p>
+  <p class="card-text"> ${info.others?.USB ? info?.others?.USB : ''}</p>
+  <p class="card-text"> ${info.others?.WLAN ? info?.others?.WLAN : ''}</p>
+
 
 
         
