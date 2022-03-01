@@ -45,7 +45,6 @@ const getPhone = (phones) => {
         toggleSpinner('none')
     }
     const max20 = phones.slice(0, 20);
-    // const phoneContainer = document.getElementById('phone-container')
     max20.forEach((phone) => {
         error.style.display = "none";
         // console.log(phone)
@@ -74,9 +73,8 @@ const getPhoneDetails = (id) => {
 // show details phone function
 const showPhoneDetais = (info) => {
     toggleSpinner('block')
-    console.log(info.others);
+    // console.log(info.others);
 
-    //   const detailsContainer = document.getElementById("details-container");
     detailsContainer.innerHTML = `
     <div class=" card w-75 mx-auto m-5 shadow ">
     <img src="${info.image}" class=" card-img-top p-3  w-50 mx-auto" alt="...">
