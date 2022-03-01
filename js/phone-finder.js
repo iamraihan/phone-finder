@@ -75,7 +75,7 @@ const getPhoneDetails = (id) => {
 // show details phone function
 const showPhoneDetais = (info) => {
     toggleSpinner("block");
-    // console.log(info.others);
+    console.log(info);
 
     detailsContainer.innerHTML = `
     <div class=" card w-75 mx-auto m-5 shadow ">
@@ -84,6 +84,7 @@ const showPhoneDetais = (info) => {
       <h5 class="card-title">Model: ${info.name}</h5>
       <p class="card-text">Brand: ${info.brand}</p>
       <p class="card-text"> ${info.releaseDate || "No Release Date Found"} </p>
+      <h5 class="card-title">Main Features</h5>
       <p class="card-text">Chipset: ${info.mainFeatures.chipSet}</p>
       <p class="card-text">Display: ${info.mainFeatures.displaySize}</p>
       <p class="card-text">Storage: ${info.mainFeatures.storage}</p>
@@ -94,7 +95,7 @@ const showPhoneDetais = (info) => {
 
 
 
-
+        <h5 class="card-title">Others </h5>
   <p class="card-text"> ${info.others?.Bluetooth ? info?.others?.Bluetooth : "No Others Found"
         }</p>
   <p class="card-text"> ${info.others?.GPS ? info?.others?.GPS : ""}</p>
