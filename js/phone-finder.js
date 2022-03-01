@@ -2,20 +2,24 @@
 const phoneContainer = document.getElementById("phone-container");
 const detailsContainer = document.getElementById("details-container");
 let error = document.getElementById("error");
-
+// spinner function
+const toggleSpinner = (toggle) => {
+    document.getElementById('toggle').style.display = toggle
+}
 //error handle function
 const errorHandle = (err) => {
     error.style.display = "block";
     error.innerHTML = err;
 }
-// search button event listener
+// search button event handler
 const searchButton = () => {
     const searchInput = document.getElementById("search-input");
     let input = searchInput.value.toLowerCase();
-    //   console.log(input);
-
+    toggleSpinner('block')
+    // when try to search without input anything show this error
     if (input === "") {
         errorHandle('Must input a phone name!!')
+        toggleSpinner('none')
         return;
     }
     // fetch api
@@ -25,14 +29,21 @@ const searchButton = () => {
         .then((data) => {
             if (data.status === false) {
                 errorHandle('No Phone Found...')
+                toggleSpinner('none')
             } else if (data.status === true) {
                 getPhone(data.data);
             }
         });
-    //input empty after result something...
+    //input empty after found result something...
     searchInput.value = "";
 };
+// view all phone function
 const getPhone = (phones) => {
+    if (phones === false) {
+        toggleSpinner('block')
+    } else {
+        toggleSpinner('none')
+    }
     const max20 = phones.slice(0, 20);
     // const phoneContainer = document.getElementById('phone-container')
     max20.forEach((phone) => {
@@ -53,14 +64,16 @@ const getPhone = (phones) => {
         phoneContainer.appendChild(div);
     });
 };
-
+// get details phone data from api function
 const getPhoneDetails = (id) => {
     const url = `https://openapi.programming-hero.com/api/phone/${id}`;
     fetch(url)
         .then((res) => res.json())
         .then((data) => showPhoneDetais(data.data));
 };
+// show details phone function
 const showPhoneDetais = (info) => {
+    toggleSpinner('block')
     console.log(info.others);
 
     //   const detailsContainer = document.getElementById("details-container");
@@ -96,4 +109,5 @@ const showPhoneDetais = (info) => {
     </div>
   </div>
     `;
+    toggleSpinner('none')
 };
